@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { Injector } from '@nestjs/core/injector/injector';
 import { InjectRepository } from '@nestjs/typeorm';
+import { User } from 'src/user/entities/user.entity';
 import { UserSubscriber } from 'src/user/entities/user.suscriber';
 import { Repository } from 'typeorm';
 import { CreateNotificationDto } from './dto/create-notification.dto';
@@ -14,12 +15,23 @@ export class NotificationService {
     private readonly notificationRepository : Repository<Notification>,
   ){}
 
-  async create(notification) {
-    let notif = new Notification()
-    return await this.notificationRepository.save(notification)
-    
-    
+  // async create(notification) {
+  //   let notif = new Notification()
+  //   return await this.notificationRepository.save(notification)
+  // }
+
+  async create(message: string, user: User): Promise<Notification>{
+
+    const notification = {
+      heure: new Date().getHours(),
+      minute: new Date().getMinutes(),
+      message,
+      user,
+    };
+
+    return this.notificationRepository.save(notification);
   }
+
 
   findAll() {
     return this.notificationRepository.find();

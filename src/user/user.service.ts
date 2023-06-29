@@ -23,7 +23,7 @@ export class UserService {
       user.age = createUserDto.age,
       user.image = createUserDto.image
 
-      this.eventEmitter.emit('user.create', User)
+      this.eventEmitter.emit('user.create', user)
     return await this.userRepository.save(user)
     }catch(e){
       console.log(e)
@@ -55,7 +55,7 @@ export class UserService {
     user.lastname = updateUserDto.lastname,
     user.age = updateUserDto.age,
     user.image = updateUserDto.image
-    this.eventEmitter.emit('user.create', User)
+    this.eventEmitter.emit('user.update', User)
 
     return await this.userRepository.save(user)
     }catch(e){
@@ -66,7 +66,7 @@ export class UserService {
 
   async delete(id: number) {
     try{
-      this.eventEmitter.emit('user.create', User)
+      this.eventEmitter.emit('user.delete', User)
       return this.userRepository.delete(id);
     }catch(e){
       throw new InternalServerErrorException("Failed ti delete")
