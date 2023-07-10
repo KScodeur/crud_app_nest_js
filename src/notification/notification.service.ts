@@ -6,13 +6,13 @@ import { UserSubscriber } from 'src/user/entities/user.suscriber';
 import { Repository } from 'typeorm';
 import { CreateNotificationDto } from './dto/create-notification.dto';
 import { UpdateNotificationDto } from './dto/update-notification.dto';
-import { Notification } from './entities/notification.entity';
+import { Notifications} from './entities/notification.entity';
 
 @Injectable()
 export class NotificationService {
   constructor(
-    @InjectRepository(Notification)
-    private readonly notificationRepository : Repository<Notification>,
+    @InjectRepository(Notifications)
+    private readonly notificationRepository : Repository<Notifications>,
   ){}
 
   // async create(notification) {
@@ -20,16 +20,15 @@ export class NotificationService {
   //   return await this.notificationRepository.save(notification)
   // }
 
-  async create(message: string, user: User): Promise<Notification>{
+  async create(message: string){
+    let notif = new Notifications();
+    notif.heure = new Date().getHours(),
+    notif.minute = new Date().getMinutes(),
+    notif.message = message,
+    notif.user = null;
 
-    const notification = {
-      heure: new Date().getHours(),
-      minute: new Date().getMinutes(),
-      message,
-      user,
-    };
 
-    return this.notificationRepository.save(notification);
+     return await this.notificationRepository.save(notif);
   }
 
 
@@ -41,8 +40,6 @@ export class NotificationService {
     return `This action returns a #${id} notification`;
   }
 
-  async update(id: number, updateNotificationDto: UpdateNotificationDto) {
-    return await this.notificationRepository.update(id, updateNotificationDto);
-  }
+
 
 }

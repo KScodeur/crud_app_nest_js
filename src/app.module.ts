@@ -6,7 +6,7 @@ import { AppService } from './app.service';
 import { User } from './user/entities/user.entity';
 import { UserModule } from './user/user.module';
 import { NotificationModule } from './notification/notification.module';
-import { Notification } from './notification/entities/notification.entity';
+import { Notifications} from './notification/entities/notification.entity';
 import { EventEmitterModule } from '@nestjs/event-emitter';
 import { UserService } from './user/user.service';
 import { NotificationSubscriber } from './notification/entities/notification.subscriber';
@@ -14,7 +14,7 @@ import { NotificationSubscriber } from './notification/entities/notification.sub
 @Module({
   imports: [
     EventEmitterModule.forRoot(),
-    TypeOrmModule.forFeature([User, Notification]),
+    TypeOrmModule.forFeature([User, Notifications]),
     TypeOrmModule.forRoot(typeOrmConfig),
     UserModule,
     NotificationModule, 

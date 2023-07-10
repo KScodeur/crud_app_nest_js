@@ -1,5 +1,5 @@
 import { IsNotEmpty } from "class-validator";
-import { Notification } from "src/notification/entities/notification.entity";
+import { Notifications} from "src/notification/entities/notification.entity";
 import { BaseEntity, Column,CreateDateColumn,UpdateDateColumn,DeleteDateColumn, Entity, PrimaryGeneratedColumn, OneToMany } from "typeorm";
 
 @Entity()
@@ -30,7 +30,7 @@ export class User extends BaseEntity{
     @DeleteDateColumn()
     deleteDate: Date;
 
-    @OneToMany(() => Notification, (notification) => notification.user) // note: we will create author property in the Photo class below
-    notification: Notification[]
+    @OneToMany(() => Notifications, (notification) => notification.user)
+    notification: Notifications[]
 
 }

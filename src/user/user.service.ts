@@ -15,7 +15,7 @@ export class UserService {
     private readonly eventEmitter: EventEmitter2
 
   ){}
-  async create(createUserDto: CreateUserDto): Promise<User> {
+  async create(createUserDto: CreateUserDto){
     try{
       let user = new User();
       user.firstname = createUserDto.firstname,
@@ -23,7 +23,7 @@ export class UserService {
       user.age = createUserDto.age,
       user.image = createUserDto.image
 
-      this.eventEmitter.emit('user.create', user)
+      this.eventEmitter.emit('user.created', user)
     return await this.userRepository.save(user)
     }catch(e){
       console.log(e)
@@ -55,7 +55,9 @@ export class UserService {
     user.lastname = updateUserDto.lastname,
     user.age = updateUserDto.age,
     user.image = updateUserDto.image
-    this.eventEmitter.emit('user.update', User)
+    user.user_id   = id;
+    console.log(user)
+    this.eventEmitter.emit('user.updated', user)
 
     return await this.userRepository.save(user)
     }catch(e){
@@ -64,12 +66,13 @@ export class UserService {
     }
   }
 
-  async delete(id: number) {
+  async delete(id: number){
     try{
-      this.eventEmitter.emit('user.delete', User)
-      return this.userRepository.delete(id);
+      const user = this.findOne(id);
+       this.eventEmitter.emit('user.deleted',(await user));
+      return await this.userRepository.delete(id);
     }catch(e){
-      throw new InternalServerErrorException("Failed ti delete")
+      throw new InternalServerErrorException("Failed to delete")
     }
   }
 }

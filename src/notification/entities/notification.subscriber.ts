@@ -16,23 +16,26 @@ export class NotificationSubscriber implements EntitySubscriberInterface{
         return NotificationSubscriber;
     }
 
-    @OnEvent('user.create')
-    handleUserCreateEvent(payload: User){
-        console.log('user create:', payload.firstname)
+    @OnEvent('user.created')
+    handleUserCreatedEvent(payload: User){
         this.notificationService.create(
-            `Nouvel utilisateur créé : ${payload.firstname}`,
-            payload,
+            `Nouvel utilisateur créé : ${payload.firstname}`
         )
     }
 
-    @OnEvent('user.update')
-    handleUserUpdateEvent(user: User){
-        console.log('user update:', user)
+    @OnEvent('user.updated')
+    handleUserUpdatedEvent(user: User){
+        this.notificationService.create(
+            `Utilisateur mise à jour : ${user.firstname}`
+        )
     }
 
-    @OnEvent('user.delete')
+    @OnEvent('user.deleted')
     handleUserDeleteEvent(user: User){
-        console.log('user delete:', user)
+        console.log(user.firstname)
+        this.notificationService.create(
+            `Utilisateur supprimé : ${user.firstname}`
+        )
     }
 
 

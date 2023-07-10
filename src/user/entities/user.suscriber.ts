@@ -1,5 +1,5 @@
 import { Logger } from '@nestjs/common';
-import { Notification } from 'src/notification/entities/notification.entity';
+import { Notifications } from 'src/notification/entities/notification.entity';
 import { NotificationService } from 'src/notification/notification.service';
 import {
     DataSource,
@@ -30,7 +30,7 @@ import { User } from './user.entity';
         console.log(event.entity.firstname)
       }
     }
-  
+ /* 
     beforeInsert(event: InsertEvent<User>) {
       console.log(`BEFORE USER INSERTED: `, event.entity);
       let  notification={
@@ -42,5 +42,5 @@ import { User } from './user.entity';
       };
       // return this.notificationService.create(notification);
         // return addNotification;
-      }
+      }*/
 }

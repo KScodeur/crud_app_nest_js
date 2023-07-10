@@ -2,7 +2,8 @@ import { User } from "src/user/entities/user.entity";
 import { BaseEntity, Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity()
-export class Notification extends BaseEntity{
+export class Notifications extends BaseEntity{
+  
     @PrimaryGeneratedColumn()
     notif_id: number;
 
